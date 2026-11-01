@@ -4,6 +4,8 @@ Een Nederlandstalige browsertool die afbeeldingen omzet naar bewerkbare kruisste
 
 ## Aan de slag
 
+Gebruik Steekstudio direct op **[nartex81.github.io/steekstudio](https://nartex81.github.io/steekstudio/)**. Aanmelden is niet nodig; je afbeeldingen blijven in je eigen browser.
+
 Download deze repository en open **dist/index.html** in een moderne browser. Je kunt ook de map **dist** op een statische webhost plaatsen.
 
 1. Laad een PNG-, JPG- of WebP-afbeelding op (maximaal 20 MB).
