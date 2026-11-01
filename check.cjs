@@ -1,0 +1,12 @@
+const assert=require('node:assert/strict');
+const E=require('./dist/engine.js');
+const rgba=p=>Uint8ClampedArray.from(p.flatMap(c=>[...c,255]));
+const p=E.convert(rgba([[255,255,255],[255,0,0],[255,255,255],[0,0,255]]),2,2,2,true,false);
+assert.deepEqual(p.cells.filter(x=>x<0),[-1,-1]);assert.equal(p.palette.length,2);
+assert.equal(new Set(p.cells.filter(x=>x>=0)).size,2);
+const framed=Array.from({length:25},(_,i)=>i===12?[255,255,255]:[0,0,0]);
+assert.notEqual(E.convert(rgba(framed),5,5,2,true,false).cells[12],-1,'enclosed white details must stay');
+const empty=E.convert(rgba([[255,255,255]]),1,1,10,true,true);assert.deepEqual(empty.palette,[]);assert.deepEqual(empty.cells,[-1]);
+const valid={version:1,...p,fabric:14,name:'Vos'};assert.deepEqual(E.validate(valid),valid);
+assert.throws(()=>E.validate({...valid,cells:[999]}));assert.throws(()=>E.validate({...valid,palette:['<script>']}));assert.throws(()=>E.validate({...valid,width:Infinity}));
+console.log('OK: color conversion, connected background, enclosed white, empty pattern and project validation');
