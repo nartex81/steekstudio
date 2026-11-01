@@ -32,11 +32,24 @@
     return {width:w,height:h,palette:used.map(i=>hex(centers[i])),cells:cells.map(c=>c<0?-1:lookup.get(c))};
   }
   function validate(p){
-    if(!p || p.version!==1 || !Number.isInteger(p.width)||!Number.isInteger(p.height)||p.width<1||p.width>200||p.height<1||p.height>400)throw Error('Ongeldige patroonafmetingen.');
+    if(!p || ![1,2].includes(p.version) || !Number.isInteger(p.width)||!Number.isInteger(p.height)||p.width<1||p.width>200||p.height<1||p.height>400)throw Error('Ongeldige patroonafmetingen.');
     if(!Array.isArray(p.palette)||p.palette.length>24||!p.palette.every(c=>/^#[0-9a-f]{6}$/i.test(c)))throw Error('Ongeldige kleurenlijst.');
     if(!Array.isArray(p.cells)||p.cells.length!==p.width*p.height||!p.cells.every(c=>Number.isInteger(c)&&c>=-1&&c<p.palette.length))throw Error('Ongeldige steekgegevens.');
     if(![11,14,16,18].includes(p.fabric))throw Error('Ongeldige stofkeuze.');
-    return {version:1,width:p.width,height:p.height,palette:p.palette.slice(),cells:p.cells.slice(),fabric:p.fabric,name:typeof p.name==='string'?p.name.slice(0,80):'Mijn patroon'};
+    const stitchTypes=p.version===1?Array(p.cells.length).fill(0):p.stitchTypes;
+    if(!Array.isArray(stitchTypes)||stitchTypes.length!==p.cells.length||!stitchTypes.every(t=>Number.isInteger(t)&&t>=0&&t<=2))throw Error('Ongeldige steektypes.');
+    return {version:2,width:p.width,height:p.height,palette:p.palette.slice(),cells:p.cells.slice(),stitchTypes:stitchTypes.slice(),fabric:p.fabric,name:typeof p.name==='string'?p.name.slice(0,80):'Mijn patroon'};
   }
-  const api={convert,validate,hex,rgb,symbols};if(typeof module!=='undefined')module.exports=api;else root.StitchEngine=api;
+  // 0 = full cross, 1 = rising half (/), 2 = falling half (backslash).
+  function segments(type,x,y,size,inset=0){
+    const down=[x+inset,y+inset,x+size-inset,y+size-inset];
+    const up=[x+inset,y+size-inset,x+size-inset,y+inset];
+    return type===1?[up]:type===2?[down]:[down,up];
+  }
+  function stitchCounts(p){
+    const full=p.palette.map(()=>0),half=p.palette.map(()=>0);
+    p.cells.forEach((c,i)=>{if(c>=0)(p.stitchTypes[i]===0?full:half)[c]++;});
+    return {full,half};
+  }
+  const api={convert,validate,hex,rgb,symbols,segments,stitchCounts};if(typeof module!=='undefined')module.exports=api;else root.StitchEngine=api;
 })(typeof window==='undefined'?globalThis:window);
