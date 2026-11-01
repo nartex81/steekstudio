@@ -138,7 +138,7 @@ $('saveProject').onclick=()=>{if(project)download(new Blob([JSON.stringify(proje
 async function restoreProject(p){
   const next=E.validate(p);
   if(next.source)await loadSource(next.source.data,next.name,next.source.crop);
-  project=next;undoStack=[];$('undo').disabled=true;$('fabric').value=project.fabric;$('width').value=Math.max(20,project.width);$('widthOut').value=$('width').value;zoom=1;focusCell=0;
+  project=next;undoStack=[];$('undo').disabled=true;$('fabric').value=project.fabric;$('width').value=Math.max(10,project.width);$('widthOut').value=$('width').value;zoom=1;focusCell=0;
   if(project.source){schedulePreview();}
   else{source=null;sourceData=null;draft=null;$('sourcePreview').removeAttribute('src');$('cropBtn').disabled=true;$('generate').disabled=true;drawOriginal();$('previewInfo').textContent='Dit oudere project heeft geen bronafbeelding. Je patroon en steken blijven bewerkbaar.';}
   $('pending').hidden=true;refresh();
