@@ -10,7 +10,7 @@ Download deze repository en open **dist/index.html** in een moderne browser. Je 
 
 1. Laad een PNG-, JPG- of WebP-afbeelding op (maximaal 20 MB).
 2. Snijd tekst, randen en borduurringen weg.
-3. Kies 20–200 steken breed en 2–24 kleuren en maak je patroon.
+3. Kies 10–200 steken breed en 2–24 kleuren en maak je patroon.
 4. Werk vakjes bij met potlood, gum of pipet en wijzig tinten via de kleurenlijst.
 5. Sla het project op of exporteer het patroon met kleurenlegenda.
 
