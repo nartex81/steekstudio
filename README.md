@@ -20,6 +20,8 @@ Download deze repository en open **dist/index.html** in een moderne browser. Je 
 - Verbonden lichte achtergrond verwijderen en losse kleurpuntjes verminderen.
 - Afmetingen voor 11, 14, 16 of 18 count Aida.
 - Tekenen, wissen, kleuren kiezen, zoomen en ongedaan maken.
+- Hele kruissteek (×) of halve steek in beide richtingen (/ en \). Kies **Steek** bij het potlood. De keuze geldt ook voor alle steken wanneer je opnieuw genereert. Halve steken blijven behouden bij opslaan, heropenen en exporteren naar SVG, PNG en PDF.
+- De legenda telt hele en halve steken apart. Oudere projecten worden als hele steken ingelezen.
 - Projecten als JSON opslaan en opnieuw openen; het laatste patroon wordt lokaal onthouden.
 - SVG en PNG met raster, legenda en aantallen.
 - Afdrukken of bewaren als PDF via het browservenster, met A4-patroonbladen van maximaal 40 × 50 steken.
